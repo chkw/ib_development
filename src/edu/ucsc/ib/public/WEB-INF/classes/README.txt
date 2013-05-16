@@ -1,0 +1,1 @@
+The server build (compiled) files should go in this directory.

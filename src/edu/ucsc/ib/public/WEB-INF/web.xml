@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE web-app
+PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+"http://java.sun.com/j2ee/dtds/web-app_2_3.dtd">
+
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+	version="2.4">
+
+	<!--
+		This web.xml file contains various configuration settings for the
+		Interaction Browser web services. It belongs in a Tomcat directory such as
+		/ib/web/edu.ucsc.ib.NetVizTest/WEB-INF/web.xml
+		
+		http://oreilly.com/pub/a/java/archive/tomcat.html
+	-->
+
+	<display-name>Interaction Browser</display-name>
+	<description>Interaction Browser</description>
+	
+
+  <!-- Common Gateway Includes (CGI) processing servlet, which supports     -->
+  <!-- execution of external applications that conform to the CGI spec      -->
+  <!-- requirements.  Typically, this servlet is mapped to the URL pattern  -->
+  <!-- "/cgi-bin/*", which means that any CGI applications that are         -->
+  <!-- executed must be present within the web application.  This servlet   -->
+  <!-- supports the following initialization parameters (default values     -->
+  <!-- are in square brackets):                                             -->
+  <!--                                                                      -->
+  <!--   cgiPathPrefix        The CGI search path will start at             -->
+  <!--                        webAppRootDir + File.separator + this prefix. -->
+  <!--                        [WEB-INF/cgi]                                 -->
+  <!--                                                                      -->
+  <!--   debug                Debugging detail level for messages logged    -->
+  <!--                        by this servlet.  [0]                         -->
+  <!--                                                                      -->
+  <!--   executable           Name of the executable used to run the        -->
+  <!--                        script. [perl]                                -->
+  <!--                                                                      -->
+  <!--   parameterEncoding    Name of parameter encoding to be used with    -->
+  <!--                        CGI servlet.                                  -->
+  <!--                        [System.getProperty("file.encoding","UTF-8")] -->
+  <!--                                                                      -->
+  <!--   passShellEnvironment Should the shell environment variables (if    -->
+  <!--                        any) be passed to the CGI script? [false]     -->
+  <!--                                                                      -->
+  <!--   stderrTimeout        The time (in milliseconds) to wait for the    -->
+  <!--                        reading of stderr to complete before          -->
+  <!--                        terminating the CGI process. [2000]           -->
+
+<!--
+	<servlet>
+		<servlet-name>cgi</servlet-name>
+		<servlet-class>org.apache.catalina.servlets.CGIServlet</servlet-class>
+		<init-param>
+			<param-name>debug</param-name>
+			<param-value>0</param-value>
+		</init-param>
+		<init-param>
+			<param-name>cgiPathPrefix</param-name>
+			<param-value>WEB-INF/cgi</param-value>
+		</init-param>
+			<load-on-startup>5</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>cgi</servlet-name>
+		<url-pattern>/cgi-bin/*</url-pattern>
+	</servlet-mapping>
+-->
+	
+	<!-- TestService definition -->
+	<servlet>
+		<servlet-name>TestService</servlet-name>
+		<servlet-class>edu.ucsc.ib.server.TestService</servlet-class>
+		<display-name>TestService Servlet</display-name>
+		<description>Servlet for testing use</description>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>TestService</servlet-name>
+		<url-pattern>/data/test/*</url-pattern>
+	</servlet-mapping>
+	
+	<!-- CirclePlotService definition -->
+	<servlet>
+		<servlet-name>CirclePlotService</servlet-name>
+		<servlet-class>edu.ucsc.ib.server.CirclePlotService</servlet-class>
+		<display-name>CirclePlotService Servlet</display-name>
+		<description>Servlet for CirclePlots</description>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>CirclePlotService</servlet-name>
+		<url-pattern>/data/circlePlot/*</url-pattern>
+	</servlet-mapping>
+	
+	<!-- PathwayService definition -->
+	<servlet>
+		<servlet-name>PathwayService</servlet-name>
+		<servlet-class>edu.ucsc.ib.server.PathwayService</servlet-class>
+		<display-name>PathwayService Servlet</display-name>
+		<description>Servlet for getting pathway data</description>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>PathwayService</servlet-name>
+		<url-pattern>/data/pathway/*</url-pattern>
+	</servlet-mapping>
+	
+	<!-- ConceptScoresService definition -->
+	<servlet>
+		<servlet-name>ConceptScoresService</servlet-name>
+		<servlet-class>edu.ucsc.ib.server.ConceptScoresService</servlet-class>
+		<display-name>ConceptScoresService Servlet</display-name>
+		<description>Servlet for uploading and getting concept scores</description>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ConceptScoresService</servlet-name>
+		<url-pattern>/data/conceptScores/*</url-pattern>
+	</servlet-mapping>
+	
+	<!-- IterativeBayesPathwayExpanderService definition -->
+	<servlet>
+		<servlet-name>IterativeBayesPathwayExpanderService</servlet-name>
+		<servlet-class>edu.ucsc.ib.server.IterativeBayesPathwayExpanderService</servlet-class>
+		<display-name>IterativeBayesPathwayExpanderService Servlet</display-name>
+		<description>Servlet for iterative bayes pathway expansion</description>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>IterativeBayesPathwayExpanderService</servlet-name>
+		<url-pattern>/data/iterativeBayesPathwayExpander/*</url-pattern>
+	</servlet-mapping>
+	
+	<!-- QueryExternalService definition -->
+	<servlet>
+		<servlet-name>QueryExternalService</servlet-name>
+		<servlet-class>edu.ucsc.ib.server.QueryExternalService</servlet-class>
+		<display-name>QueryExternalService Servlet</display-name>
+		<description>Servlet for querying external services</description>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>QueryExternalService</servlet-name>
+		<url-pattern>/data/queryExternal/*</url-pattern>
+	</servlet-mapping>
+	
+	<!-- BiodeRecommenderService definition -->
+	<servlet>
+		<servlet-name>BiodeRecommenderService</servlet-name>
+		<servlet-class>edu.ucsc.ib.server.BiodeRecommenderService</servlet-class>
+		<display-name>BiodeRecommenderService Servlet</display-name>
+		<description>Servlet for handling saved states</description>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>BiodeRecommenderService</servlet-name>
+		<url-pattern>/data/biodeRecommender/*</url-pattern>
+	</servlet-mapping>
+
+	<!-- CustomTrackDbService definition -->
+	<servlet>
+		<servlet-name>SavedStateDBService</servlet-name>
+		<servlet-class>edu.ucsc.ib.server.SavedStateDBService</servlet-class>
+		<display-name>SavedStateDBService Servlet</display-name>
+		<description>Servlet for handling saved states</description>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>SavedStateDBService</servlet-name>
+		<url-pattern>/data/savedStateDB/*</url-pattern>
+	</servlet-mapping>
+
+	<!-- CustomTrackDbService definition -->
+	<servlet>
+		<servlet-name>CustomTrackDbService</servlet-name>
+		<servlet-class>edu.ucsc.ib.server.CustomTrackDbService</servlet-class>
+		<display-name>CustomTrackDbService Servlet</display-name>
+		<description>Servlet for handling custom track data</description>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>CustomTrackDbService</servlet-name>
+		<url-pattern>/data/customTrackDB/*</url-pattern>
+	</servlet-mapping>
+
+	<!-- TrackRecommenderDbService definition -->
+	<servlet>
+		<servlet-name>TrackRecommenderDbService</servlet-name>
+		<servlet-class>edu.ucsc.ib.server.TrackRecommenderDbService</servlet-class>
+		<display-name>TrackRecommenderDbService
+			Servlet</display-name>
+		<description>Servlet for Track Recommender</description>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>TrackRecommenderDbService</servlet-name>
+		<url-pattern>/data/trdb/*</url-pattern>
+	</servlet-mapping>
+
+	<!-- SetsDbService definition -->
+	<servlet>
+		<servlet-name>SetsDbService</servlet-name>
+		<servlet-class>edu.ucsc.ib.server.SetsDbService</servlet-class>
+		<display-name>SetsDbService Servlet</display-name>
+		<description>Servlet to get sets data from database</description>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>SetsDbService</servlet-name>
+		<url-pattern>/data/setsdb/*</url-pattern>
+	</servlet-mapping>
+
+	<!-- TrackDbService definition -->
+	<servlet>
+		<servlet-name>TrackDbService</servlet-name>
+		<servlet-class>edu.ucsc.ib.server.TrackDbService</servlet-class>
+		<display-name>TrackDbService Servlet</display-name>
+		<description>Servlet to get track data from database</description>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>TrackDbService</servlet-name>
+		<url-pattern>/data/trackdb/*</url-pattern>
+	</servlet-mapping>
+
+	<!-- AnnoDbService definition -->
+	<servlet>
+		<servlet-name>AnnoDbService</servlet-name>
+		<servlet-class>edu.ucsc.ib.server.AnnoDbService</servlet-class>
+		<display-name>AnnoDbService Servlet</display-name>
+		<description>Servlet to get annotation data from database</description>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>AnnoDbService</servlet-name>
+		<url-pattern>/data/annodb/*</url-pattern>
+	</servlet-mapping>
+	
+	<!-- PathwayBounceService definition -->
+	<servlet>
+		<servlet-name>PathwayBounceService</servlet-name>
+		<servlet-class>edu.ucsc.ib.server.PathwayBounceService</servlet-class>
+		<display-name>PathwayBounce Servlet</display-name>
+		<description>Servlet to handle requests to decode a pathway formatted file for client</description>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>PathwayBounceService</servlet-name>
+		<url-pattern>/pathwayBounce/*</url-pattern>
+	</servlet-mapping>
+
+	<!-- FileBounceService definition -->
+	<servlet>
+		<servlet-name>FileBounceService</servlet-name>
+		<servlet-class>edu.ucsc.ib.server.FileBounceService</servlet-class>
+		<display-name>FileBounce Servlet</display-name>
+		<description>Servlet to handle requests to bounce a file back to client</description>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>FileBounceService</servlet-name>
+		<url-pattern>/fileBounce/*</url-pattern>
+	</servlet-mapping>
+
+	<!-- Welcome Page -->
+	<welcome-file-list>
+		<welcome-file>ibWelcome.html</welcome-file>
+	</welcome-file-list>
+
+	<!-- sysbioData DB resource definition -->
+	<resource-ref>
+		<description>sysbioData DB Connection</description>
+		<res-ref-name>jdbc/sysbioData</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>Container</res-auth>
+	</resource-ref>
+
+	<!-- ibCustom DB resource definition -->
+	<resource-ref>
+		<description>ibCustom DB Connection</description>
+		<res-ref-name>jdbc/ibCustom</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>Container</res-auth>
+	</resource-ref>
+
+</web-app>

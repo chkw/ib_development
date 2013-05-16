@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html401/loose.dtd">
+<HTML>
+	<HEAD>
+		<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+		<link rel="stylesheet" href="NetVizTest-drawpanel.css" type="text/css" />
+		<TITLE>Interaction Browser Tutorial Page</TITLE>
+	</HEAD>
+	<BODY id=tutorial>
+		<H1 class="banner"> Tutorial for Loading Your Own Data </H1>
+		<p>
+			Here, we use uploaded data files to draw a pathway graph with CircleMap images.  For your convenience, the example data files can be downloaded <a href='example_data/example_data.zip' target=_blank>here</a>.
+		</p>
+		<OL>
+			<LI class="stripe">
+				<B>Visit the Interaction Browser (IB) webpage</B> by clicking <a target="_blank" href="NetVizTest.html">here</a> or the link near the bottom of this page.  The IB will open in a new window, so you can refer back to this page easily.
+			</li>
+			<LI class="stripe">
+				Network files are uploaded in the "browse networks" window.  To open this window, go to networks -> browse.
+				<BR>
+				<img class="center_image" src="images/tutorial/01_browse_network.png" alt="01_browse_network">
+			</li>
+			<LI class="stripe">
+				Next step is to create a selectable network.  Click on the "custom" button to reveal controls for loading a network.  Give the network a name and then browse your file system for your network file using the "browse" button.  Each row in the file gives the two nodes in an edge, separated by a tab character.  HUGO gene symbols are the preferred keyspace for genes.  An example is available at <a href='example_data/links_a.tab' target=_blank>this link</a> and <a href='example_data/links_b.tab' target=_blank>this link</a>.  Click the "submit" button to load the network into the Interaction Browser.
+				<BR>
+				<img class="center_image" src="images/tutorial/02_select_network_file.png" alt="02_select_network_file">
+			</li>
+			<LI class="stripe">
+				The network will become selectable once the network has been successfully uploaded.  Click on the "custom networks" button to reveal the controls for uploaded networks.  Clicking on the checkbox selects the network for viewing.  With the network turned on, edges will be displayed as nodes are added to the graph.  In the next step, a gene set will be uploaded.
+				<BR>
+				<img class="center_image" src="images/tutorial/03_turn_on_network.png" alt="03_turn_on_network">
+			</li>
+			<LI class="stripe">
+				Sets of genes may be added to the graph in the "browse concepts" window.  To open this window, go to concepts -> browse.  Click on the "user input" panel.
+				<BR>
+				<img class="center_image" src="images/tutorial/04_browse_concepts.png" alt="04_browse_concepts">
+			</li>
+			<LI class="stripe">
+				To load a gene set from a file, browse your file system using the "browse" button.  The file format for gene sets is a tab-delimited file.  Again, HUGO gene symbols are the preferred keyspace.  An example is available at <a href='example_data/list.tab' target=_blank>this link</a>.  Once you have found your file, click on the "get IDs from file" button.  This will load your gene set into the text area.  Double-check the correctness of the IDs and then click "lookup entities in database, then add" button.  The Interaction Browser will attempt to map your IDs to a HUGO gene symbol, and then add them to the graph.
+				<BR>
+				<img class="center_image" src="images/tutorial/05_select_gene_list_file.png" alt="05_select_gene_list_file">
+			</li>
+			<LI class="stripe">
+				With the network turned, edges are drawn in the graph as nodes are added.  The graph is interactive.  Nodes can be repositioned.  Double-clicking a node also brings up a window with some information.
+				<BR>
+				<img class="center_image" src="images/tutorial/06_network_graph.png" alt="06_network_graph">
+			</li>
+			<LI class="stripe">
+				Many TCGA patient datasets are available for visualization in the Interaction Browser.  The data can be displayed as rings in CircleMap node visualizations.  It is also possible to uploaded your own data matrices for drawing CircleMaps.  To get started with CircleMaps, bring up the CircleMaps window by going to visualization -> concepts -> circle images.
+				<BR>
+				<img class="center_image" src="images/tutorial/07_circlemap_controls.png" alt="07_circlemap_controls">
+			</li>
+			<LI class="stripe">
+				Browse your file system for your matrix file using the controls at the bottom of the CircleMaps window.  The matrix file has the following requirements:
+				<UL>
+				<LI>The file is tab-delimited.
+				</LI>
+				<LI>Each row contains data for one gene.
+				</LI>
+				<LI>Each column contains data for one sample.
+				</LI>
+				<LI>The first row contains IDs for the samples.  Each sample ID should be unique.
+				</LI>
+				<LI>The first column contains IDs for the genes.  Please use HUGO gene symbols.
+				</LI>
+				</UL>
+				An example is available at <a href='example_data/matrix_a.tab' target=_blank>this link</a>.  Click the "upload matrix" button to upload the file to the Interaction Browser.  The Interaction Browser will prepare the data for use in CircleMaps.  When it is ready for use, a new checkbox will be created for selecting the newly uploaded data.
+				<BR>
+				<img class="center_image" src="images/tutorial/08_upload_matrix_file.png" alt="08_upload_matrix_file">
+			</li>
+			<LI class="stripe">
+				To view your data in CircleMaps, select your data by clicking its checkbox.  Next, click the "view CircleMaps" button.  CircleMaps will be drawn and displayed on the graph.
+				<BR>
+				<img class="center_image" src="images/tutorial/09_view_circlemaps.png" alt="09_view_circlemaps">
+			</li>
+			<LI class="stripe">
+				Additional datasets may be visualized as concentric rings in the CircleMaps.  Simply select the data that you'd like to view.  Additional datasets are drawn as additional outer rings of the CircleMap.  An additional matrix file is available at <a href='example_data/matrix_b.tab' target=_blank>this link</a>.
+				<BR>
+				<img class="center_image" src="images/tutorial/10_view_circlemaps.png" alt="10_view_circlemaps">
+			</li>
+			<LI class="stripe">
+				The ordering of samples in the CircleMaps can be changed by clicking on a ring in a gene's CircleMap.  The new sorting will be based upon the dataset score in the selected gene's ring.  Double-clicking on a CircleMap bings up a window with an enlarged view of the CircleMap.  Hovering over the large CircleMap will give the name of the rings' datasets.  The rings may also be clicked to induce a new sample ordering.
+				<BR>
+				<img class="center_image" src="images/tutorial/11_sort_circlemap.png" alt="11_sort_circlemap">
+			</li>
+		</OL>
+		<HR>
+		<H1 class="banner"><a class="banner" target="_blank" href="NetVizTest.html">Let's go to the Interaction Browser!</a></H1>
+	</BODY>
+</HTML>

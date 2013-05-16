@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html401/loose.dtd">
+<HTML>
+	<HEAD>
+		<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+		<link rel="stylesheet" href="NetVizTest-drawpanel.css" type="text/css" />
+		<TITLE>Additional Features</TITLE>
+	</HEAD>
+	<!--
+	p4u9s1
+	-->
+	<BODY id=tutorial>
+		<H1 class="banner"> Additional Features </H1>
+		<OL>
+			<LI class="stripe">
+				<B>Save a graph.</B> A graph can be saved by going to the menu bar -> File -> save -> save session ID.  This will save the network graph in its current state on the Interaction Browser server.  You can access the graph in a later session on the Interaction Browser by visiting the URL for the session or by submitting the ID number in the menu bar -> File -> load ID.  This is a convenient way to share your network graph with other users.
+				<br>
+				<img class="center_image" src="images/tutorial/save_state_control.png" border=0 alt="save_state_control">
+			</li>
+			<LI class="stripe">
+				<B>A custom network.</B> The user is able to create a custom network by entering network data in the fields provided in the `Custom' section of the network browsing controls (accessed by going to the menu bar -> Networks -> browse).  Custom networks are semi-private in that they are only available during the same Interaction Browser session that they were created in.
+				<br>
+				<img class="center_image" src="images/tutorial/custom_track_control.png" border=0 alt="custom_track_control">
+			</li>
+			<LI class="stripe">
+				<B>Expanding the network.</B> A selected set of entities may be used as a query set for the purpose of expanding the displayed network.  Access the controls for this Iterative Bayesian Pathway Expansion by going to the menu bar -> Concepts -> expand -> Iterative Bayes.  You should see a list of genes to be included in the query set.  Also, there will be checkboxes for selecting networks for the pathway expansion.  The Interaction Browser will attempt to find genes to be included in the query pathway by analysing the network neighborhood of each gene in the selected networks.  After iterating over the specified number of times, the probability of candidate pathway genes will be reported.  Since this process could be time-consuming (especially with large networks), it's best to start out with a small number of iterations before trying many iterations.
+				<br>
+				<img class="center_image" src="images/tutorial/iter_bayes_expand.png" border=0 alt="iter_bayes_expand">
+			</li>
+			<LI class="stripe">
+				Find <B>common neighbors</B> of a selected query set of nodes by going to the menu bar -> Concepts -> common neighbors.  With this feature, you can look for genes that are neighbors of all of the members of the selected query set of genes in the currently active networks.  Here the selected genes, <i>bar-1</i> and <i>ogt-1</i>, have 2 common neighbors from the active networks that can be added to the graph.
+				<br>
+				<img class="center_image" src="images/tutorial/neighbor_search.png" border=0 alt="neighbor_search">
+				<!--
+				<OL>
+				<LI>
+				Use the listbox to <B>select entities based on the number of neighbors</B> they have.  Choose the minimum number of neighbors, then click "select nodes".  Only entity nodes that have at least the selected number of neighbors will be selected.
+				</li>
+				<LI>
+				To <B>Find new neighbors.</B>, first select the entities for which you'd like to find neighbors.  Then click the "new neighbors" button.  The Interaction Browser will then look in all currently active tracks for the query entities' neighbors.  The results are sent to the entity clipboard so you can choose which ones you'd like to edd to the network graph.
+				</li>
+				<LI>
+				To <B>find current neighbors</B>, first select the entities for which you'd like to find neighbors.  Then click the "current neighbors" button.  This will select all the currently displayed neighbors in the active tracks for the selected set.  The originally selected set of query entities will be deselected.
+				</li>
+				</OL>
+				-->
+			</li>
+			<LI class="stripe">
+				<B>Unconnected nodes</B> can be selected or removed by going to the menu bar -> Concepts -> unconnected.  Selecting unconnected nodes causes entities with no neighbors in the currently displayed graph to be selected.  Removing unconnected nodes causes them to be removed from the graph, and their IDs to be appended to the clipboard to be reviewed.  In the example, <i>exo-3</i> is not connected to any other gene in the displayed network.
+				<br>
+				<img class="center_image" src="images/tutorial/unconnected_control.png" border=0 alt="unconnected_control">
+			</li>
+			<LI class="stripe">
+				The Interaction Browser can <B>recommmend a network</B> for a set of entities.  The "network recommender" button is found in the network control tab below the custom network control.  In order for the network recommender to work, at least two entities must be added to the network graph.  When the network recommender button is clicked, the Interaction Browser uses the entities in the network graph as a query to search in all available networks on the Interaction Browser server.  As there are many networks, this process may take some time.  When it is done, a list of the most relevant networks for the query set of entities is returned.  The list includes the number of relevant links.  (Note that some of these links might be self-links, an edge that connects a node to itself.  The IB currently does not visualize such edges.)  Turn on networks from the recommender results by using the checkboxes.
+				<br>
+				<img class="center_image" src="images/tutorial/track_recommender_control.png" border=0 alt="track_recommender_control">
+			</li>
+			<LI class="stripe">
+				<B>Add a set of entities</B> by using the "Sets" section from the menu bar -> Concepts -> browse.
+				<OL>
+					<LI>
+						The "Sets" control can <B>search for a set</B> of annotated entities.  To begin, be sure the desired organism is selected from the listbox.  This choice affects the databases that are available to search in.  For example, GO, Kegg, and Proteome are available for worm.  Next type in a string to use for the query.  Finally, click search.  The Interaction Browser will look for all entity sets which contain a match for the query string.  In the example, the Interaction Browser looks for all GO sets in worm that have "muscle" in the name.  The results are found in a listbox from which you can select sets by name and add its members to the network graph.
+						<br>
+						<img class="center_image" src="images/tutorial/entity_set_control.png" border=0 alt="entity_set_control">
+					</li>
+					<LI>
+						The "Sets" control can calculate <B>set enrichment</B> for a set of entities.  A selected set of query entities is used to calculate the enrichment in a selected collection of sets.  In the example, the GO sets for worm are queried.  The reported results are the hypergeometric p-value for finding the number of matched entities given the size of the query set and the total size of the annotated set of entities.  The top scoring set was "larval development".
+						<br>
+						<img class="center_image" src="images/tutorial/entity_set_enrichment.png" border=0 alt="entity_set_enrichment">
+					</li>
+				</OL>
+			</li>
+		</OL>
+		<HR>
+		<H1 class="banner"><a class="banner" target="_blank" href="NetVizTest.html">Let's go to the Interaction Browser!</a></H1>
+	</BODY>
+</HTML>

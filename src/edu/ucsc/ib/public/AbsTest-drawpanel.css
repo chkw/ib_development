@@ -1,0 +1,170 @@
+/* NetVizTest-drawpanel.css */
+body, html {
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+	font-family: Lucida Grande, Helvetica, Arial;
+	font-size: 10px;
+}
+li.stripe {
+	background: #EFF2FB;
+}
+li.stripe:nth-child(odd) {
+	background: #D8F6CE;
+}
+#tutorial {
+	background-color: #FFF9D2;
+	font-size: 14px;
+}
+#tutorial h1.banner {
+	text-align: center;
+	color: white;
+	background-color: #2636D1;
+}
+#tutorial a.banner:link, a.banner:visited, a.banner:active, a.banner:hover {
+	color: white;
+}
+#tutorial img.center_image {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+#netVizSlot {
+	position: absolute;
+	height: 100%;
+	top: 0px;
+	left: 0em;
+	border: 1px solid green;
+}
+#netVizSlot svg {
+	padding: 0px;
+	overflow: hidden; /* default was visible */
+	height: 100%;
+	width: 100%;
+}
+/* the tab panel itself */
+.gwt-TabPanel {
+	width: 100%;
+	height: 100%;
+}
+.gwt-TabBar {
+	font-size: 14px;
+}
+.gwt-TabBar .gwt-TabBarFirst {
+	margin-left: 0.75em;
+}
+.gwt-TabBar .gwt-TabBarItem {
+	font-size: 18px;
+	border-width: 1px 1px 0px 1px;
+	border-color: gray;
+	border-style: solid;
+	padding: 0.1em 0.3em 0em 0.3em;
+	/*	text-transform: lowercase; */
+}
+.gwt-TabBar .gwt-TabBarItem-selected {
+	background: #FFFBD3;
+	/*	text-transform: uppercase; */
+}
+/* the bottom section of the tab panel (the deck containing the widget) */
+.gwt-TabPanelBottom {
+	border: 1px solid gray;
+	background: #FFFBD3;
+}
+.gwt-StackPanelItem {
+	font-size: 18px;
+	background: #C0E3FF;
+	border-top: 1px solid gray;
+	border-bottom: 1px solid gray;
+	width: 100%;
+	padding: 0.2em 0em 0.2em 1em;
+}
+.gwt-StackPanel {
+}
+.gwt-StackPanelItem-selected {
+	background: #CCFF99;
+}
+.ib-biodeSetControl {
+	padding: 2px;
+	margin: 0px;
+	width: 100%;
+}
+.ib-biodeControlPanel-label {
+}
+.ib-biodeControlPanel-button {
+}
+.ib-biodeControlPanel-list {
+	width: 100%;
+}
+.ib-biodeControlPanel-input {
+	width: 100%;
+}
+.ib-biodeControlPanel-throbber {
+}
+.ib-biodeControlPanel-searchInputPanel {
+}
+.ib-dataVizPanel {
+	border: 1px solid gray;
+	background: #C0E3FF;
+	padding: 2px;
+	margin: 0px;
+	width: 100%;
+}
+.ib-contextMenu {
+	margin: 0px;
+	padding: 0px;
+	background-color: #C3D9FF;
+	background-image: none;
+	color: #222222;
+	white-space: nowrap;
+	cursor: default;
+	border-style: none;
+	border-width: 0px;
+}
+.ib-contextMenu .gwt-MenuItem {
+	padding: 1px 4px 1px 4px;
+	cursor: default;
+}
+.ib-contextMenu .gwt-MenuItem-selected {
+	background-color: #E8EEF7;
+}
+.gwt-DialogBox {
+	border: 2px outset;
+	background-color: white;
+}
+.gwt-DialogBox .Caption {
+	background-color: #C3D9FF;
+	padding: 3px;
+	margin: 2px;
+	font-weight: bold;
+	cursor: default;
+}
+.gwt-MenuBar {
+	background-color: #C3D9FF;
+	border: 1px solid #87B3FF;
+	cursor: default;
+}
+.gwt-MenuBar .gwt-MenuItem {
+	padding: 1px 4px 1px 4px;
+	cursor: default;
+}
+.gwt-MenuBar .gwt-MenuItem-selected {
+	background-color: #E8EEF7;
+}
+.gwt-MenuBar-horizontal .gwt-MenuItemSeparator {
+	width: 1px;
+	padding: 0px;
+	margin: 0px;
+	border: 0px;
+	border-left: 1px solid #888888;
+	background: white;
+}
+.gwt-MenuBar-horizontal .gwt-MenuItemSeparator .menuSeparatorInner {
+	width: 1px;
+	height: 1px;
+	background: white;
+}
+.popupContent {
+	background-color: #ADA96E;
+	border: 0;
+}
+

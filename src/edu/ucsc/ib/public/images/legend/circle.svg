@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="22px" height="22px">
+		<g id="circle" transform="translate(11, 11)">
+		<circle cx="0" cy="0" r="10" fill-opacity="0.75" stroke-opacity="0.75" fill="yellow" stroke="gray" stroke-width="1"></circle>
+		</g>
+</svg>

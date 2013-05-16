@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html401/loose.dtd">
+<HTML>
+	<HEAD>
+		<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+		<link rel="stylesheet" href="NetVizTest-drawpanel.css" type="text/css" />
+		<TITLE>Interaction Browser Tutorial Page</TITLE>
+	</HEAD>
+	<BODY id=tutorial>
+		<H1 class="banner"> Tutorial for Displaying CircleMap Images </H1>
+		<p>
+			Here, we draw a pathway graph with CircleMap images for nodes.
+		</p>
+		<OL>
+			<LI class="stripe">
+				<B>Visit the Interaction Browser (IB) webpage</B> by clicking <a target="_blank" href="NetVizTest.html">here</a> or the link near the bottom of this page.  The IB will open in a new window, so you can refer back to this page easily.
+			</li>
+			<LI class="stripe">
+				To <B>select a network</B>, go to the menu bar -> Networks -> browse.  When a network is selected, by clicking on the checkbox next to its name, its edges appear in the network visualization as colored lines.  In the illustrated example, the `UCSC_Superpathway_collapsed' network is turned on.  For this network, regulatory relationships are indicated using arrowheads for activating links and bars for deactivating links.  Also, solid lines are used for post-transcriptional regulation and dotted lines are used for transcriptional regulation.
+				<BR>
+				<img class="center_image" src="images/tutorial/one_network.png" alt="one_network">
+			</li>
+			<LI class="stripe">
+				Select a second network, `HPRD', by browsing the ppi networks.  Click the check box for `HPRD' to turn on the network.  Now edges for both the `UCSC_Superpathway_collapsed' and the `HPRD' networks will be visualized.
+				<BR>
+				<img class="center_image" src="images/tutorial/two_networks.png" alt="two_networks">
+			</li>
+			<LI class="stripe">
+				Sets of genes may be added to the graph in the "browse concepts" window.  To open this window, go to concepts -> browse.  Click on the "user input" panel.
+				<BR>
+				<img class="center_image" src="images/tutorial/04_browse_concepts.png" alt="04_browse_concepts">
+			</li>
+			<LI class="stripe">
+				To load a gene set from a file, browse your file system using the "browse" button.  The file format for gene sets is a tab-delimited file.  Again, HUGO gene symbols are the preferred keyspace.  An example is available at <a href='example_data/list.tab' target=_blank>this link</a>.  Once you have found your file, click on the "get IDs from file" button.  This will load your gene set into the text area.  Double-check the correctness of the IDs and then click "lookup entities in database, then add" button.  The Interaction Browser will attempt to map your IDs to a HUGO gene symbol, and then add them to the graph.
+				<BR>
+				<img class="center_image" src="images/tutorial/05_select_gene_list_file.png" alt="05_select_gene_list_file">
+			</li>
+			<!--
+<LI class="stripe">
+				Search for a pathway to display by going to Pathways -> search by name.  This will bring up a dialog with a list of pathways to select from.  There is a text box that you can use to reduce to a shorter list.  Here, we search for "lincs" pathway.
+				<BR>
+				<img class="center_image" src="images/tutorial/pathway_search.png" alt="pathway_search">
+			</li>
+			<LI class="stripe">
+				Click on the "+" button to draw the pathway graph.
+				<BR>
+				<img class="center_image" src="images/tutorial/draw_pathway_graph.png" alt="draw_pathway_graph">
+			</li>
+ -->
+			<LI class="stripe">
+				Bring up the CircleMap controls by going to Visualization -> concepts -> circle images.  A list of selectable datasets will be presented.  Selected datasets will be used to draw rings in the CircleMap images.  The list of datasets can be reduced by entering search terms.  Here we will select some data for colorectal cancer (COADREAD).
+				<BR>
+				<img class="center_image" src="images/tutorial/select_rings.png" alt="select_rings">
+			</li>
+			<LI class="stripe">
+				Each dataset that is selected is added as the outermost ring in the CircleMap.  Click the "view CircleMaps" button to draw images.
+				<BR>
+				<img class="center_image" src="images/tutorial/click_update_circlemaps.png" alt="click_update_circlemaps">
+			</li>
+			<LI class="stripe">
+				Double-click on a CircleMap in the graph to view a larger version of the CircleMap.  Clicking on a CircleMap's ring will induce a new sample ordering based on the ring's scores for the clicked gene.  The new sample ordering will be applied to new CircleMap images drawn for the displayed graph nodes.  (Note: This click-to-sort feature does not work as expected with the Chromium browser despite working well with Chrome.)
+				<BR>
+				<img class="center_image" src="images/tutorial/circlemap_closeup.png" alt="circlemap_closeup">
+			</li>
+			<LI class="stripe">
+				In addition to the scored, numerical dataset rings selected previously, datasets with discrete, non-numerical data are available by clicking the "sample group" button.  Again, search terms may be used to reduce the list.
+				<BR>
+				<img class="center_image" src="images/tutorial/sample_group_search.png" alt="sample_group_search">
+			</li>
+			<LI class="stripe">
+				Hovering over a sample group ring will display a key to describe sample groupings.
+				<BR>
+				<img class="center_image" src="images/tutorial/sample_group_ring.png" alt="sample_group_ring">
+			</li>
+		</OL>
+		<HR>
+		<H1 class="banner"><a class="banner" target="_blank" href="NetVizTest.html">Let's go to the Interaction Browser!</a></H1>
+	</BODY>
+</HTML>

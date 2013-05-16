@@ -1,0 +1,1 @@
+The circleMap image output should go in this directory.

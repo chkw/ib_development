@@ -1,0 +1,1 @@
+The cgi scripts should go in this directory.

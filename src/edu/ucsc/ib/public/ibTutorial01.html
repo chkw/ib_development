@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html401/loose.dtd">
+<HTML>
+	<HEAD>
+		<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+		<link rel="stylesheet" href="NetVizTest-drawpanel.css" type="text/css" />
+		<TITLE>Interaction Browser Tutorial Page</TITLE>
+	</HEAD>
+	<BODY id=tutorial>
+		<H1 class="banner"> Tutorial for Displaying an Interaction Network </H1>
+		<p>
+			Nodes and edges make up the network graph.  Nodes, which represent biological entities, are added in one of several ways.  The two most basic ways to accomplish this is to look them up individually in the Interaction Browser's annotation files or by pasting in a list of identifiers in a text area.  Users select networks from checkboxes arranged by datatypes.  When a network is turned on, the relevant edges are displayed in the network.  The user can then use the spring-embedded layout to make the network visually appealing.  The network graph is interactive, meaning that nodes may be manually repositioned.
+		</p>
+		<OL>
+			<LI class="stripe">
+				<B>Visit the Interaction Browser (IB) webpage</B> by clicking <a target="_blank" href="NetVizTest.html">here</a> or the link near the bottom of this page.  The IB will open in a new window, so you can refer back to this page easily.  When the page is done loading, you will see a screen with a menu bar at the top that looks like:
+				<BR>
+				<img class="center_image" src="images/tutorial/screen_layout.png" alt="screen_layout">
+			</li>
+<!--			<LI class="stripe">
+				<B>Select the organism</B> from which to search for concepts and tracks.  This is done using the pull-down menu.  The current choices are human, worm, and yeast.  Here, we select worm.  Once an organism has been selected, the IB will communicate with the IB server to download a list of networks available for the selected organism.  This could take a moment for organisms with a large number of networks.
+				<BR>
+				<img class="center_image" src="images/tutorial/select_organism.png" alt="select_organism">
+			</li> -->
+			<LI class="stripe">
+				To <B>search for a particular gene</B> of interest, bring up a dialog box by going to Concepts -> browse.  Next, search the annotation for `kinase'.  The result is a selectable list of genes that includes `kinase' in the annotation.  To select "AKT1", click "AKT1" in the list and then the "add selected item" button to create a node.
+				<BR>
+				<img class="center_image" src="images/tutorial/kinase_search.png"  alt="kinase_search">
+			</li>
+			<LI class="stripe">
+				The AKT1 gene has been added as a node to the network visualization, the main central area of the browser window.  Double-clicking on a node brings up a <B>description of the entity</B> in a dialog box.
+				<BR>
+				<img class="center_image" src="images/tutorial/akt1_nodes_dialog_box.png" alt="akt1_nodes_dialog_box">
+			</li>
+			<LI class="stripe">
+				To <B>add a group of entities</B> to the network visualization, enter a list in the `User Input' text area.  Here is a list to try out: MAD1L1 BLM KNTC1 PML TTK BRSK1 MXI1 TGFB1 GTSE1 TRIAP1 CDKN2B PCBP4 BUB1 GML BUB3 ZW10 DLGAP5 RINT1 CENPF NLRP2 ATM ZWINT BUB1B RBM38 CHFR MAD2L2 ARAP1 RAD17
+				<BR>
+				<img class="center_image" src="images/tutorial/add_concept_list.png" alt="add_concept_list">
+			</li>
+			<LI class="stripe">
+				The specified set of nodes has been added to the network visualization by clicking the button, "lookup entities in database, then add".
+				<BR>
+				<img class="center_image" src="images/tutorial/graph_nodes.png" alt="graph_nodes">
+			</li>
+			<LI class="stripe">
+				To <B>select a network</B>, go to the menu bar -> Networks -> browse.  When a network is selected, by clicking on the checkbox next to its name, its edges appear in the network visualization as colored lines.  In the illustrated example, the `UCSC_Superpathway_collapsed' network is turned on.  For this network, regulatory relationships are indicated using arrowheads for activating links and bars for deactivating links.  Also, solid lines are used for post-transcriptional regulation and dotted lines are used for transcriptional regulation.
+				<BR>
+				<img class="center_image" src="images/tutorial/one_network.png" alt="one_network">
+			</li>
+			<LI class="stripe">
+				The Interaction Browser can visualize <B>multiple networks</B> simultaneously with the edges from the networks appearing as lines of different colors.  Here, the graph is visualized with a circle layout, where the nodes are placed on the edge of a circle.  The <B>layout</B> is selected by going to the menu bar -> Visualization -> layout.
+				<BR>
+				<img class="center_image" src="images/tutorial/circle.png" alt="circle">
+			</li>
+			<LI class="stripe">
+				This is the same graph as above, except it uses the <B>spring-embedded layout</B> algorithm instead of the circle layout.
+				<BR>
+				<img class="center_image" src="images/tutorial/spring.png" alt="spring">
+			</li>
+			<LI class="stripe">
+				Once you have a network displayed, you may be interested in several output options that are available in the IB.  These options are are selected by going to the menu bar -> File.
+				<UL>
+			<!--		<LI>
+						An image of the network may be downloaded as an <B>SVG file</B>.
+					</li> -->
+					<LI>
+						The <B>links</B> within the network may be downloaded as a text file.
+					</li>
+					<LI>
+						A <B>list of the currently selected nodes</B> may be downloaded as a text file.
+					</li>
+				</UL>
+			</li>
+			<LI class="stripe">
+				This concludes the basic procedure for visualizing a network in the Interaction Browser.
+				<!--The IB also has <B>additional features</B> that are described on <a href="ibTutorial02.html">this page</a>.-->
+			</li>
+		</OL>
+		<!--
+
+		<LI><P>A custom track.  The user is able to create a custom track by entering track data in the fields provided in the `Custom' stack panel on the left side of the window.
+
+		<LI><P>The visualization of custom tracks is the same as other, non-custom tracks.
+
+		<LI><P>Expanding the network.  A selected set of entities may be used as a query set for either ClueGene or GeneRecommender services for the purpose of expanding the network.  Here, 4 worm entities are used as the query set for ClueGene service to find 5 new entities.
+
+		<LI><P>ClueGene has returned 5 entities as a result of the search in figure 11.  They have been positioned in a vertical line on the left side of the network visualization.  One of the ClueGene result nodes has been selected for a neighbor search.  The neighbor search looks in all active tracks for entities that connect directly to the query entities.  The results appear in the `User Input' text area on the left of the window.  The user may then choose to add the results to the network visualization, as in figure 13.
+
+		<LI><P>The results of the network neighbor search have been added to the network visualization.  They have been manually positioned in a semi-circle around the query node.  All of the newly-added nodes have an edge connecting to the query node.
+
+		-->
+		</OL>
+		<HR>
+		<H1 class="banner"><a class="banner" target="_blank" href="NetVizTest.html">Let's go to the Interaction Browser!</a></H1>
+	</BODY>
+</HTML>
