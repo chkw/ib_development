@@ -94,17 +94,17 @@ public class PathwayBounceService extends HttpServlet {
 
 			JSONObject resultJO = null;
 
-			if (fileFormat.equalsIgnoreCase("xgmml")) {
-				resultJO = xgmmlToJson(fileName, fileContents);
-			} else if (fileFormat.equalsIgnoreCase("ucsc_pathway")) {
-				resultJO = new JSONObject();
-				resultJO.put("fileFormat", fileFormat);
-			} else if (fileFormat.equalsIgnoreCase("sif")) {
-				resultJO = new JSONObject();
-				resultJO.put("fileFormat", fileFormat);
-			}
-
 			try {
+				if (fileFormat.equalsIgnoreCase("xgmml")) {
+					resultJO = xgmmlToJson(fileName, fileContents);
+				} else if (fileFormat.equalsIgnoreCase("ucsc_pathway")) {
+					resultJO = new JSONObject();
+					resultJO.put("fileFormat", fileFormat);
+				} else if (fileFormat.equalsIgnoreCase("sif")) {
+					resultJO = new JSONObject();
+					resultJO.put("fileFormat", fileFormat);
+				}
+
 				DatabaseService.writeJSONRPCTextResponse(resultJO, null, id,
 						resp);
 			} catch (Exception e) {
@@ -354,9 +354,11 @@ public class PathwayBounceService extends HttpServlet {
 	 * @param node
 	 *            an xgmml.GraphicNode
 	 * @return JSONObject with keys: ID, common, desc, x, y.
+	 * @throws JSONException
 	 */
 	private static JSONObject xgmmlNodeToJsonObject(
-			HashMap<String, JSONObject> annotationsHashMap, GraphicNode node) {
+			HashMap<String, JSONObject> annotationsHashMap, GraphicNode node)
+			throws JSONException {
 		String label = node.getLabel();
 
 		String canonicalName = null;
@@ -399,9 +401,10 @@ public class PathwayBounceService extends HttpServlet {
 	 * @param description
 	 *            Used to set the value of "desc".
 	 * @return
+	 * @throws JSONException
 	 */
 	private static JSONObject createGenericNodeJO(String label,
-			String canonicalName, String description) {
+			String canonicalName, String description) throws JSONException {
 		JSONObject nodeJO;
 		nodeJO = new JSONObject();
 		nodeJO.put("common", label);

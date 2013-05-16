@@ -381,8 +381,9 @@ public class AnnoDbService extends DatabaseService {
 	 *         contains the JSONArrays named "unmapped" and "annotations". Each
 	 *         JSONObject in annotations JSONArray has K-V pairs for "ID",
 	 *         "common", and "desc".
+	 * @throws JSONException 
 	 */
-	public static String aliasToAnnotation2(String[] idList) {
+	public static String aliasToAnnotation2(String[] idList) throws JSONException {
 		String csv = DatabaseService.arrayToCommaSeparatedString(idList);
 		String jsonString = aliasToAnnotation2("9606", csv);
 
