@@ -1,4 +1,4 @@
-package edu.ucsc.ib.client.rpc;
+package edu.ucsc.ib.server.rpc;
 
 
 /**

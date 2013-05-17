@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONException;
 import org.json.JSONStringer;
 
-import edu.ucsc.ib.client.rpc.AnnotationSearchResults;
+import edu.ucsc.ib.server.rpc.AnnotationSearchResults;
 
 /**
  * Service for recommending biodes. Handles requests to use service such as
