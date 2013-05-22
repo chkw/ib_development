@@ -36,6 +36,7 @@ import edu.ucsc.ib.drawpanel.client.Group;
 import edu.ucsc.ib.drawpanel.client.Image;
 import edu.ucsc.ib.drawpanel.client.Shape;
 import edu.ucsc.ib.drawpanel.client.Text;
+import edu.ucsc.ib.drawpanel.client.Title;
 
 /**
  * A node in the network. Must have a unique identifier. This uses inheritance
@@ -148,7 +149,7 @@ public class BasicNode extends Group implements HasMouseDownHandlers,
 	/**
 	 * The title for this node.
 	 */
-	protected String title;
+	protected Title title;
 
 	protected int SIZE = Shape.DEFAULT_SIZE;
 
@@ -209,8 +210,7 @@ public class BasicNode extends Group implements HasMouseDownHandlers,
 		add(shapeObject);
 
 		// This is for the tooltip.
-		title = tooltipName;
-		shapeObject.setTitle(title);
+		setTitle(tooltipName);
 
 		label = new Text(labeledName);
 		setAttachLabel(true);
@@ -232,14 +232,12 @@ public class BasicNode extends Group implements HasMouseDownHandlers,
 	 */
 	public void setAttachLabel(final boolean attach) {
 		if ((attach) && (!label.isAttached() && (isUsingImage()))) {
-			label.setTitle(title);
 			add(label);
 		} else if ((attach)
 				&& (!label.isAttached() && !(id.toLowerCase().endsWith(
 						"(abstract)")
 						|| id.toLowerCase().endsWith("(complex)") || id
 						.toLowerCase().endsWith("(drug)")))) {
-			label.setTitle(title);
 			add(label);
 		} else if ((!attach) && (label.isAttached())) {
 			label.removeFromParent();
@@ -376,9 +374,6 @@ public class BasicNode extends Group implements HasMouseDownHandlers,
 			final String biodeSpace) {
 		this.id = id;
 
-		// This is for the tooltip.
-		title = tooltipName;
-
 		if (!label.isAttached()) {
 			label = new Text(labeledName);
 		}
@@ -500,7 +495,6 @@ public class BasicNode extends Group implements HasMouseDownHandlers,
 		// swap in a new shape
 		remove(shapeObject);
 		shapeObject = new Shape(shapeCode);
-		shapeObject.setTitle(title);
 		add(shapeObject);
 
 		// put the label back on top
@@ -590,14 +584,13 @@ public class BasicNode extends Group implements HasMouseDownHandlers,
 	}
 
 	/**
-	 * Set the title for this node. It is the tooltip for the widget. Sets the
-	 * title on both the imageObject and the shapeObject.
+	 * Set the title for this node. It is the tooltip for the widget.
+	 * 
+	 * @param title
 	 */
-	public void setTitle(final String title) {
-		this.title = title;
-
-		this.imageObject.setTitle(title);
-		this.shapeObject.setTitle(title);
+	public void setTitle(final String text) {
+		title = new Title(text);
+		this.add(title);
 	}
 
 	/**

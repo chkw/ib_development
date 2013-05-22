@@ -39,7 +39,7 @@ public class TrackLine extends Group {
 	/**
 	 * Constructor.
 	 * 
-	 * @param title
+	 * @param titleText
 	 * @param color
 	 * @param length
 	 * @param vOffset
@@ -48,14 +48,16 @@ public class TrackLine extends Group {
 	 * @param isDashed
 	 * 
 	 */
-	public TrackLine(String title, String color, double length, double vOffset,
-			int head, int tail, boolean isDashed) {
+	public TrackLine(String titleText, String color, double length,
+			double vOffset, int head, int tail, boolean isDashed) {
 		// draw a line
 		this.line = new Line(0, vOffset, length, vOffset);
 		this.line.setStroke(color);
 		this.line.setStrokeWidth(DEFAULT_STROKE_WIDTH);
+
 		// this is for the tooltip
-		this.line.setTitle(title);
+		this.add(new Title(titleText));
+
 		this.line.setStrokeOpacity(LINE_STROKE_OPACITY);
 
 		if (isDashed) {

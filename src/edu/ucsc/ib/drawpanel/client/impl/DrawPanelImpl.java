@@ -47,6 +47,15 @@ public class DrawPanelImpl {
 	}
 
 	/**
+	 * Create and return SVG title element.
+	 * 
+	 * @return
+	 */
+	public Element createTitleElement() {
+		return createElementNS(SVG_URI, "title");
+	}
+
+	/**
 	 * Create and return SVG line element.
 	 * 
 	 * @return
