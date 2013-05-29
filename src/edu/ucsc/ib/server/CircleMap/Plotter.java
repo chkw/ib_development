@@ -8,6 +8,11 @@ import java.awt.geom.Arc2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import org.apache.batik.dom.GenericDOMImplementation;
+import org.apache.batik.svggen.SVGGraphics2D;
+import org.w3c.dom.DOMImplementation;
+import org.w3c.dom.Document;
+
 import edu.ucsc.ib.server.CircleMap.CircleMapData.ArcData;
 import edu.ucsc.ib.server.CircleMap.CircleMapData.RingData;
 
@@ -21,7 +26,10 @@ import edu.ucsc.ib.server.CircleMap.CircleMapData.RingData;
  */
 public class Plotter {
 
-	private static final double DEFAULT_SIZE_OF_BUFFERED_IMAGE = new Double(200);
+	// private static final double DEFAULT_SIZE_OF_BUFFERED_IMAGE = new
+	// Double(200);
+	private static final double DEFAULT_SIZE_OF_BUFFERED_IMAGE = new Double(
+			4000);
 	public static final double DEFAULT_RELATIVE_SIZE_OF_CENTER = new Double(1);
 	private final double imageWidth;
 	private final double imageHeight;
@@ -57,6 +65,24 @@ public class Plotter {
 	}
 
 	// TODO method section below ///////////////////////////////
+
+	/**
+	 * Draw a filled slice of a centered circle. Uses an Arc2D.Double object.
+	 * 
+	 * @param g2d
+	 * @param diameter
+	 * @param startAngle
+	 * @param sweepAngle
+	 * @param color
+	 */
+	private void fillCenteredArc2D_svg(SVGGraphics2D g2d, double diameter,
+			double startAngle, double sweepAngle, Color color) {
+		g2d.setColor(color);
+		Arc2D shape = new Arc2D.Double((imageWidth / 2) - (diameter / 2),
+				(imageHeight / 2) - (diameter / 2), diameter, diameter,
+				startAngle, sweepAngle, Arc2D.PIE);
+		g2d.fill(shape);
+	}
 
 	/**
 	 * Draw a filled slice of a centered circle. Uses an Arc2D.Double object.
@@ -111,6 +137,99 @@ public class Plotter {
 
 		Graphics2D graphics2D = bi.createGraphics();
 
+		renderToG2D(circleMapData, graphics2D);
+
+		return bi;
+	}
+
+	public SVGGraphics2D getCircleMapSvgG2D(CircleMapData circleMapData) {
+		// Get a DOMImplementation.
+		DOMImplementation domImpl = GenericDOMImplementation
+				.getDOMImplementation();
+
+		// Create an instance of org.w3c.dom.Document.
+		String svgNS = "http://www.w3.org/2000/svg";
+		Document document = domImpl.createDocument(svgNS, "svg", null);
+
+		// Create an instance of the SVG Generator.
+		SVGGraphics2D svgGenerator = new SVGGraphics2D(document);
+
+		renderToSvgG2D(circleMapData, svgGenerator);
+
+		return svgGenerator;
+	}
+
+	/**
+	 * Render the CircleMapData to the specified Graphics2D.
+	 * 
+	 * @param circleMapData
+	 * @param graphics2D
+	 */
+	private void renderToSvgG2D(CircleMapData circleMapData,
+			SVGGraphics2D graphics2D) {
+		// TODO debug stuff (orange background)
+		// graphics2D.setBackground(Color.ORANGE);
+		// graphics2D.clearRect(0, 0, (int) this.imageWidth,
+		// (int) this.imageHeight);
+
+		// use anti-aliasing, if possible
+		// tends to increase the file size of the resulting image file
+		// graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+		// RenderingHints.VALUE_ANTIALIAS_ON);
+
+		// Sum of previous rings' thickenesses.
+		double previousRingThicknessUnits = new Double(0);
+
+		// Center of CircleMap will default to 1 unit of thickness.
+		double sumOfRingThicknessUnits = DEFAULT_RELATIVE_SIZE_OF_CENTER;
+		for (RingData ringData : circleMapData.getRingData()) {
+			sumOfRingThicknessUnits += ringData.getThickness();
+		}
+
+		// draw rings
+		ArrayList<RingData> ringDataList = circleMapData.getRingData();
+		for (int i = 0; i < circleMapData.getRingCount(); i++) {
+			RingData ringData = ringDataList.get(i);
+
+			// whole diameter minus thickness of previous rings
+			double fractionOfDiameterToUse = 1 - (previousRingThicknessUnits / sumOfRingThicknessUnits);
+
+			double diameter = imageWidth * fractionOfDiameterToUse;
+
+			previousRingThicknessUnits += ringData.getThickness();
+
+			// remove ghosting from anti-aliasing
+			fillCenteredArc2D_svg(graphics2D, diameter, new Double(0),
+					new Double(360), Color.WHITE);
+
+			// arcs
+			for (ArcData arcData : ringData.getArcData()) {
+				double startAngle = arcData.getStartAngle();
+				double sweepAngle = arcData.getSweepAngle();
+				Color color = arcData.getColor();
+
+				fillCenteredArc2D_svg(graphics2D, diameter, startAngle,
+						sweepAngle, color);
+			}
+		}
+
+		// draw the center section as white circle
+		double diameter = imageWidth
+				* (DEFAULT_RELATIVE_SIZE_OF_CENTER / sumOfRingThicknessUnits);
+		fillCenteredArc2D_svg(graphics2D, diameter, 0, 360, Color.WHITE);
+
+		// label
+		// drawCenteredString(graphics2D, circleMapData.getLabel(),
+		// Color.ORANGE);
+	}
+
+	/**
+	 * Render the CircleMapData to the specified Graphics2D.
+	 * 
+	 * @param circleMapData
+	 * @param graphics2D
+	 */
+	private void renderToG2D(CircleMapData circleMapData, Graphics2D graphics2D) {
 		// TODO debug stuff (orange background)
 		// graphics2D.setBackground(Color.ORANGE);
 		// graphics2D.clearRect(0, 0, (int) this.imageWidth,
@@ -166,7 +285,5 @@ public class Plotter {
 		// label
 		// drawCenteredString(graphics2D, circleMapData.getLabel(),
 		// Color.ORANGE);
-
-		return bi;
 	}
 }

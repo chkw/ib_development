@@ -6,6 +6,7 @@ package edu.ucsc.ib.server;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,6 +19,7 @@ import java.util.Set;
 import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
 
+import org.apache.batik.svggen.SVGGraphics2D;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -456,7 +458,7 @@ public class CirclePlotter {
 				continue;
 			}
 
-			String url = drawCircleMapFile(feature);
+			String url = drawCircleMapFile(feature, false);
 
 			circleMapURLs.put(feature, url);
 		}
@@ -468,17 +470,24 @@ public class CirclePlotter {
 	 * Plot one CircleMap image and write it to a PNG file.
 	 * 
 	 * @param feature
+	 * @param plotSvg
+	 *            TODO
 	 * @return name of the image file.
 	 */
-	public String drawCircleMapFile(String feature) {
+	public String drawCircleMapFile(String feature, boolean plotSvg) {
 
 		// check if circle plot image already exists
 		String imageFileName = computeHashedFileName(this.baseFilename, feature);
 
+		String fileSuffix = "PNG";
+		if (plotSvg) {
+			fileSuffix = "SVG";
+		}
+
 		// return the imageFileName if it already exists
-		if ((this.drawAll = false)
+		if ((this.drawAll == false)
 				&& (checkIfFileExists(imageFileName) == true)) {
-			return imageFileName + ".PNG";
+			return imageFileName + "." + fileSuffix;
 		}
 
 		// create CircleMapData object
@@ -516,13 +525,25 @@ public class CirclePlotter {
 			}
 		}
 
-		// plot the image
-		BufferedImage bi = this.plotter.getCircleMapImage(circleMapData);
+		if (plotSvg) {
+			// plot the image
+			SVGGraphics2D svgG2D = this.plotter
+					.getCircleMapSvgG2D(circleMapData);
 
-		// write image to file
-		writePNG(bi, imageFileName);
+			// write image to file
+			writeSVG(svgG2D, imageFileName);
 
-		return imageFileName + ".PNG";
+			return imageFileName + "." + fileSuffix;
+		} else {
+			// plot the image
+			BufferedImage bi = this.plotter.getCircleMapImage(circleMapData);
+
+			// write image to file
+			writePNG(bi, imageFileName);
+
+			return imageFileName + "." + fileSuffix;
+		}
+
 	}
 
 	/**
@@ -880,37 +901,6 @@ public class CirclePlotter {
 	}
 
 	/**
-	 * Get all sample names in all of the requested rings.
-	 * 
-	 * @return
-	 */
-	private Set<String> getAllSampleNames_old() {
-
-		Set<String> sampleNamesSet = new HashSet<String>();
-
-		// scored matrices
-		for (String dataset : scoreMatrixMetadata.keySet()) {
-			sampleNamesSet.addAll(getSampleNamesFromScoresMatrix(dataset));
-		}
-
-		// clinical matrices
-		for (String dataset : clinicalData.keySet()) {
-			sampleNamesSet.addAll(getSampleNamesFromClinicalMatrix(dataset));
-		}
-
-		return sampleNamesSet;
-	}
-
-	/**
-	 * Get all sample names in all of the requested rings.
-	 * 
-	 * @return
-	 */
-	private Set<String> getAllSampleNames() {
-		return getAllSampleNames(false);
-	}
-
-	/**
 	 * Get all the sample names in the loaded datasets.
 	 * 
 	 * @param onlySamplesWithCompleteData
@@ -970,26 +960,6 @@ public class CirclePlotter {
 		}
 
 		return samplesNamesToReturn;
-	}
-
-	/**
-	 * Get sample names from the specified data matrix. Looks in the scores
-	 * matrices and clinical matrices. May return sample names from 0 or more
-	 * than one dataset.
-	 * 
-	 * @param matrixName
-	 * @return
-	 */
-	private Set<String> getSampleNamesFromMatrix(String matrixName) {
-		Set<String> sampleNamesSet = new HashSet<String>();
-
-		// scores matrix
-		sampleNamesSet.addAll(getSampleNamesFromScoresMatrix(matrixName));
-
-		// clinical matrix
-		sampleNamesSet.addAll(getSampleNamesFromClinicalMatrix(matrixName));
-
-		return sampleNamesSet;
 	}
 
 	/**
@@ -1402,37 +1372,6 @@ public class CirclePlotter {
 	}
 
 	/**
-	 * Check if need to draw any images. This method should only be called after
-	 * the baseFilename has been computed.
-	 * 
-	 * @param baseFilename
-	 * 
-	 * @return If true, then at least one image needs to be drawn. If false,
-	 *         then all images are already available. If this.drawAll is true,
-	 *         then return true.
-	 */
-	private boolean needToDraw(String baseFilename) {
-		if (this.drawAll == true) {
-			return true;
-		}
-
-		boolean needToDraw = false;
-
-		for (String feature : this.featuresHashSet) {
-			// check if circle plot image already exists
-			String imageFileName = computeHashedFileName(baseFilename, feature);
-
-			// return the imageFileName if it already exists
-			if (!checkIfFileExists(imageFileName)) {
-				needToDraw = true;
-				break;
-			}
-		}
-
-		return needToDraw;
-	}
-
-	/**
 	 * Check if an image file exists.
 	 * 
 	 * @param fileName
@@ -1454,6 +1393,29 @@ public class CirclePlotter {
 
 		return result;
 		// return false;
+	}
+
+	private void writeSVG(SVGGraphics2D svgG2D, String fileName) {
+		String sanitizedName = DatabaseService.sanitizeString(fileName);
+		if (!sanitizedName.equals(fileName)) {
+			return;
+		}
+
+		String pathName = servletContext
+				.getRealPath(IMAGE_FILE_OUTPUT_DIRECTORY + sanitizedName
+						+ ".SVG");
+
+		// Finally, stream out SVG to the standard output using
+		// UTF-8 encoding.
+		boolean useCSS = true; // we want to use CSS style attributes
+		FileWriter out;
+		try {
+			out = new FileWriter(new File(pathName));
+			svgG2D.stream(out, useCSS);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return;
+		}
 	}
 
 	/**
