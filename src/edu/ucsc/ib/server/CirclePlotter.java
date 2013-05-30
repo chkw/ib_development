@@ -770,7 +770,7 @@ public class CirclePlotter {
 				sampleGroup = "one_group";
 			}
 
-			sampleGroup = sampleGroup.toLowerCase();
+			sampleGroup = sampleGroup.toUpperCase();
 
 			// update summary data
 			double newScore = sampleScoreDbl
@@ -819,7 +819,7 @@ public class CirclePlotter {
 				sampleGroup = "one_group";
 			}
 
-			sampleGroup = sampleGroup.toLowerCase();
+			sampleGroup = sampleGroup.toUpperCase();
 
 			// find the color
 			sampleScoreDbl = summaryDataHash.get(sampleGroup).get("ave");
@@ -1061,7 +1061,7 @@ public class CirclePlotter {
 					color = selectColor(mappings);
 				}
 
-				assignedColors.put(groupingName.toLowerCase(), color);
+				assignedColors.put(groupingName.toUpperCase(), color);
 			}
 		}
 	}
@@ -1103,7 +1103,7 @@ public class CirclePlotter {
 				try {
 
 					String featureValue = getClinicalFeatureValue(
-							requestedRingName, sample).toLowerCase();
+							requestedRingName, sample).toUpperCase();
 
 					color = groupingColorKeys.get(requestedRingName).get(
 							featureValue);
@@ -1227,7 +1227,7 @@ public class CirclePlotter {
 	public static boolean datasetIsClinical(String datasetName) {
 		Boolean result = false;
 
-		if (datasetName.toLowerCase().endsWith("_clinical")
+		if (datasetName.toUpperCase().endsWith("_CLINICAL")
 				&& datasetName.contains("__")) {
 			return true;
 		}
