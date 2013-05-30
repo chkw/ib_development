@@ -720,10 +720,10 @@ public class DatabaseService extends HttpServlet {
 	 */
 	protected String getProperty(String propertyName) {
 		String result = null;
-		ServletContext sc = getServletContext();
-		if (sc != null) {
-			result = getServletContext().getInitParameter(propertyName);
-		}
+//		ServletContext sc = getServletContext();
+//		if (sc != null) {
+//			result = getServletContext().getInitParameter(propertyName);
+//		}
 		if ((result == null) && (localProperties != null)) {
 			result = localProperties.getProperty(propertyName);
 		}
