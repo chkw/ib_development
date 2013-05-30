@@ -38,7 +38,7 @@ public class CirclePlotService extends DatabaseService {
 	/**
 	 * width of CircleMap images
 	 */
-	private static final int CircleMapWidth = 200;
+	private static final int CircleMapWidth = 300;
 
 	/**
 	 * Suffix for subtype "NA"
@@ -53,10 +53,39 @@ public class CirclePlotService extends DatabaseService {
 	 */
 	private static final long serialVersionUID = -7616036350109276658L;
 
+	/**
+	 * Pancan12 color mappings.
+	 */
+	private static JSONObject pancan12ColorsJO;
+
 	// TODO //////////////////////////////////
 
 	public CirclePlotService() {
 		super();
+		
+		// load pancan12 colors from properties file
+		String s = this.getProperty("pancan12_colors");
+		try {
+			pancan12ColorsJO = new JSONObject(s);
+		} catch (JSONException e) {
+			e.printStackTrace();
+			pancan12ColorsJO = new JSONObject();
+		}
+		System.err.println("got pancan12_colors: "
+				+ pancan12ColorsJO.toString());
+	}
+
+	/**
+	 * Get the pancan12 hex color codes. 2 sets of mappings are available:
+	 * <UL>
+	 * <LI><code>tissue</code></LI>
+	 * <LI><code>k16_cluster</code></LI>
+	 * </UL>
+	 * 
+	 * @return
+	 */
+	protected JSONObject getPancan12Colors() {
+		return pancan12ColorsJO;
 	}
 
 	/**
