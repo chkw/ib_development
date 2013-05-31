@@ -285,7 +285,7 @@ public class CirclePlotter {
 	 *            switch to only include samples that have data in all datasets.
 	 *            No missing samples.
 	 * @param drawAll
-	 *            TODO
+	 *            If true, draw all CircleMaps, even ones that already exist.
 	 */
 	public void setOptions(
 			ArrayList<String> ringsList,
@@ -471,7 +471,7 @@ public class CirclePlotter {
 	 * 
 	 * @param feature
 	 * @param plotSvg
-	 *            TODO
+	 *            If true, write SVG files. If false, write PNG files.
 	 * @return name of the image file.
 	 */
 	public String drawCircleMapFile(String feature, boolean plotSvg) {
