@@ -450,6 +450,10 @@ public class CirclePlotter {
 	 */
 	public HashMap<String, String> drawCircleMaps() {
 
+		for (String datasetName : this.scoresMatrices.keySet()) {
+			this.log("scores matrix available for: " + datasetName);
+		}
+
 		HashMap<String, String> circleMapURLs = new HashMap<String, String>();
 
 		for (String feature : this.featuresHashSet) {
@@ -692,7 +696,19 @@ public class CirclePlotter {
 	 */
 	private RingData computeSummaryRingData(String feature, String ringName,
 			String summaryRingName) {
+
 		RingData ringData = new CircleMapData(feature).new RingData();
+
+		// hack for uploaded datasets
+		if (!this.scoresMatrices.containsKey(ringName)
+				&& ringName.endsWith("_uploaded")) {
+			ringName = ringName.replaceFirst("_uploaded", "");
+		}
+
+		// hack for uploaded datasets
+		if (summaryRingName.endsWith("_uploaded")) {
+			summaryRingName = summaryRingName.replaceFirst("_uploaded", "");
+		}
 
 		if (!this.scoresMatrices.get(ringName).containsKey(feature)) {
 			// add an "NA" ring if feature not found
@@ -717,7 +733,7 @@ public class CirclePlotter {
 					this.groupingColorKeys.get(summaryRingName).keySet());
 
 			// for samples that have no label in the grouping data
-			groupingNames.add("no_label");
+			groupingNames.add("NO_LABEL");
 
 			for (String groupingName : groupingNames) {
 				HashMap<String, Double> dataHash = new HashMap<String, Double>();
@@ -733,7 +749,7 @@ public class CirclePlotter {
 			dataHash.put("num_samples", new Double(0));
 
 			// all samples in "one_group"
-			summaryDataHash.put("one_group", dataHash);
+			summaryDataHash.put("ONE_GROUP", dataHash);
 		}
 
 		// compute sum_scores and num_samples according to grouping
@@ -764,10 +780,10 @@ public class CirclePlotter {
 				sampleGroup = this.getClinicalFeatureValue(summaryRingName,
 						sampleName);
 				if (sampleGroup == null) {
-					sampleGroup = "no_label";
+					sampleGroup = "NO_LABEL";
 				}
 			} else {
-				sampleGroup = "one_group";
+				sampleGroup = "ONE_GROUP";
 			}
 
 			sampleGroup = sampleGroup.toUpperCase();
@@ -813,10 +829,10 @@ public class CirclePlotter {
 				sampleGroup = this.getClinicalFeatureValue(summaryRingName,
 						sampleName);
 				if (sampleGroup == null) {
-					sampleGroup = "no_label";
+					sampleGroup = "NO_LABEL";
 				}
 			} else {
-				sampleGroup = "one_group";
+				sampleGroup = "ONE_GROUP";
 			}
 
 			sampleGroup = sampleGroup.toUpperCase();
