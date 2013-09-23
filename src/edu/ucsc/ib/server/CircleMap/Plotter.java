@@ -103,6 +103,24 @@ public class Plotter {
 	}
 
 	/**
+	 * Draw an arc of a centered circle. Uses an Arc2D.Double object.
+	 * 
+	 * @param g2d
+	 * @param diameter
+	 * @param startAngle
+	 * @param sweepAngle
+	 * @param color
+	 */
+	private void emptyCenteredArc2D(Graphics2D g2d, double diameter,
+			double startAngle, double sweepAngle, Color color) {
+		g2d.setColor(color);
+		Arc2D shape = new Arc2D.Double((imageWidth / 2) - (diameter / 2),
+				(imageHeight / 2) - (diameter / 2), diameter, diameter,
+				startAngle, sweepAngle, Arc2D.OPEN);
+		g2d.fill(shape);
+	}
+
+	/**
 	 * Draw a centered string in TimesRoman font.
 	 * 
 	 * @param g2d
@@ -265,6 +283,9 @@ public class Plotter {
 			// fillCenteredArc2D(graphics2D, diameter, new Double(0), new
 			// Double(
 			// 360), Color.WHITE);
+			
+			emptyCenteredArc2D(graphics2D, diameter, 0, 360,
+					Color.BLACK);
 
 			// arcs
 			for (ArcData arcData : ringData.getArcData()) {
@@ -272,7 +293,7 @@ public class Plotter {
 				double sweepAngle = arcData.getSweepAngle();
 				Color color = arcData.getColor();
 
-				fillCenteredArc2D(graphics2D, diameter, startAngle, sweepAngle,
+				fillCenteredArc2D(graphics2D, diameter-2, startAngle, sweepAngle,
 						color);
 			}
 		}
