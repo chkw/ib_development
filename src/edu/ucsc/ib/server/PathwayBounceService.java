@@ -101,7 +101,7 @@ public class PathwayBounceService extends HttpServlet {
 					resultJO = new JSONObject();
 					resultJO.put("fileFormat", fileFormat);
 				} else if (fileFormat.equalsIgnoreCase("sif")) {
-					resultJO = new JSONObject();
+					resultJO = sifToJson(fileName, fileContents);
 					resultJO.put("fileFormat", fileFormat);
 				}
 
@@ -483,5 +483,73 @@ public class PathwayBounceService extends HttpServlet {
 			}
 		}
 		return edgeSet;
+	}
+
+	/**
+	 * Encode the sif into a JSONObject that can be used by client.PathwayData.
+	 * 
+	 * @param fileName
+	 * @param sif
+	 * @return
+	 * @throws JSONException
+	 */
+	private static JSONObject sifToJson(String fileName, String sif)
+			throws JSONException {
+		JSONObject resultJO = new JSONObject();
+
+		JSONObject metadataJO = new JSONObject();
+		metadataJO.put("NCBI_species", "9606");
+		metadataJO.put("name", fileName);
+		metadataJO.put("source", "user");
+
+		JSONArray edgesJA = new JSONArray();
+		JSONArray nodesJA = new JSONArray();
+
+		resultJO.put("concepts", nodesJA);
+		resultJO.put("relations", edgesJA);
+		resultJO.put("metadata", metadataJO);
+
+		Set<String> sifNodes = new HashSet<String>();
+
+		for (String line : sif.split("\\n+")) {
+			String[] fields = line.split("\\t+");
+			String source = fields[0];
+			String relation = fields[1];
+			String target = fields[2];
+
+			sifNodes.add(source);
+			sifNodes.add(target);
+
+			JSONObject edgeJO = new JSONObject();
+			edgeJO.put("1", source);
+			edgeJO.put("2", target);
+			edgeJO.put("relation", relation);
+			edgeJO.put("weight", 1);
+
+			edgesJA.put(edgeJO);
+		}
+
+		String jsonRcpResp = AnnoDbService.aliasToAnnotation2(sifNodes
+				.toArray(new String[0]));
+
+		JSONArray annotationsJA = new JSONObject(jsonRcpResp).getJSONObject(
+				"result").getJSONArray("annotations");
+
+		// nodes with annotations
+		for (int i = 0; i < annotationsJA.length(); i++) {
+			JSONObject annotJO = annotationsJA.getJSONObject(i);
+			nodesJA.put(annotJO);
+			String id = annotJO.getString("ID");
+			sifNodes.remove(id);
+		}
+
+		// nodes without annotations
+		for (String id : sifNodes) {
+			JSONObject genericNodeJO = createGenericNodeJO(id, id,
+					"no description");
+			nodesJA.put(genericNodeJO);
+		}
+
+		return resultJO;
 	}
 }

@@ -505,12 +505,12 @@ public class MainMenuBar extends MenuBar {
 		});
 
 		// load xgmml file
-		final LoadPathwayFileDialogBox loadXgmmlDialogBox = new LoadPathwayFileDialogBox(
+		final LoadPathwayFileDialogBox loadPathwayDialogBox = new LoadPathwayFileDialogBox(
 				netViz);
-		pathwaysMenuBar.addItem("load pathway from xgmml file", new Command() {
+		pathwaysMenuBar.addItem("load pathway from file", new Command() {
 			@Override
 			public void execute() {
-				showDialogBox(loadXgmmlDialogBox, true);
+				showDialogBox(loadPathwayDialogBox, true);
 			}
 		});
 

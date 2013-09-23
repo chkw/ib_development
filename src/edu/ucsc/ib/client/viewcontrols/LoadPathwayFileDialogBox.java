@@ -55,10 +55,10 @@ public class LoadPathwayFileDialogBox extends IbDialogBox {
 		fileFormatListBox.setTitle("file format");
 		fileFormatListBox.addItem("xgmml", "xgmml");
 		fileFormatListBox.addItem("sif", "sif");
-		fileFormatListBox.addItem("UCSC pathway", "ucsc_pathway");
+//		fileFormatListBox.addItem("UCSC pathway", "ucsc_pathway");
 		fileFormatListBox.setSelectedIndex(0);
 
-		fileFormatListBox.setVisible(false);
+		fileFormatListBox.setVisible(true);
 	}
 
 	/**
