@@ -213,6 +213,7 @@ public class BasicNode extends Group implements HasMouseDownHandlers,
 		setTitle(tooltipName);
 
 		label = new Text(labeledName);
+		label.setDy(SIZE);
 		setAttachLabel(true);
 
 		setStandardColor(organism);
@@ -282,6 +283,8 @@ public class BasicNode extends Group implements HasMouseDownHandlers,
 		usingImage = true;
 
 		setAttachLabel(true);
+
+		label.setDy(10 + getImageSize()/2);
 	}
 
 	/**
@@ -298,6 +301,8 @@ public class BasicNode extends Group implements HasMouseDownHandlers,
 		usingImage = false;
 
 		setAttachLabel(true);
+
+		label.setDy(SIZE);
 	}
 
 	/**

@@ -54,6 +54,10 @@ public class Text extends Widget implements Drawable {
 		this.y = y;
 		DrawPanel.impl.setTextPosition(this, x, y);
 	}
+	
+	public void setDy(double dy){
+		DrawPanel.impl.setTextDy(this, dy);
+	}
 
 	@Override
 	public Element getElement_drawable() {

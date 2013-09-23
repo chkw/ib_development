@@ -822,6 +822,16 @@ public class DrawPanelImpl {
 		this.setAttribute(e, null, "x", x + "px");
 		this.setAttribute(e, null, "y", y + "px");
 	}
+	
+	/**
+	 * Set the dy value. Refer to <a href='http://www.w3.org/TR/SVG/text.html#TSpanElementDYAttribute'>SVG spec</a>.
+	 * @param t
+	 * @param y
+	 */
+	public void setTextDy(Text t, double dy) {
+		Element e = t.getElement_drawable();
+		this.setAttribute(e, null, "dy", dy + "px");
+	}
 
 	public double getBBoxWidthForDP(Drawable d) {
 		return getBBoxWidth(d.getElement_drawable());
