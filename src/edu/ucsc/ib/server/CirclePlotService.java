@@ -320,7 +320,7 @@ public class CirclePlotService extends DatabaseService {
 
 		StringBuffer sqlSB = new StringBuffer("CREATE TABLE IF NOT EXISTS `"
 				+ tableName + "`");
-		sqlSB.append(" ( feature VARCHAR(50), vector TEXT, PRIMARY KEY (feature) )");
+		sqlSB.append(" ( feature VARCHAR(250), vector TEXT, PRIMARY KEY (feature) )");
 
 		statement.execute(sqlSB.toString());
 
@@ -579,6 +579,10 @@ public class CirclePlotService extends DatabaseService {
 					featuresHashSet, orderFeature, sortingRing,
 					scoreMatrixMetadata, sampleGroupSummarySwitch,
 					ringMergeSwitch, ignoreMissingSamples, false);
+
+			// System.out.println((new JSONObject(scoresMatrices)).toString());
+			// System.out
+			// .println((new JSONObject(scoreMatrixMetadata)).toString());
 
 			// get image urls for return
 			HashMap<String, String> circleMapURLs = circlePlotter
