@@ -212,7 +212,10 @@ public class FileBounceService extends HttpServlet {
 				// don't keep duplicates
 				HashSet<String> stringsHashSet = new HashSet<String>();
 				for (String s : stringsArray) {
-					stringsHashSet.add(s);
+					String[] splitByTab = s.split("\\t+");
+					for (String t : splitByTab) {
+						stringsHashSet.add(t);
+					}
 				}
 
 				StringBuffer sb = new StringBuffer();
