@@ -226,7 +226,8 @@ public class BiodeUserInputPanel extends Composite implements ViewControl,
 	 * @return
 	 */
 	String[] getInputIds() {
-		return input.getText().trim().replaceAll(",", " ").split("\\s+");
+//		return input.getText().trim().replaceAll(",", " ").split("\\s+");
+		return input.getText().trim().replaceAll(",", " ").split("\\n+");
 	}
 
 	/**
@@ -245,7 +246,7 @@ public class BiodeUserInputPanel extends Composite implements ViewControl,
 	 */
 	static void appendInputArea(String newInput) {
 		StringBuffer strBuf = new StringBuffer(input.getText().trim());
-		strBuf.append(" ");
+		strBuf.append("\n");
 		strBuf.append(newInput);
 		input.setText(strBuf.toString());
 	}
@@ -260,7 +261,7 @@ public class BiodeUserInputPanel extends Composite implements ViewControl,
 		StringBuffer strBuf = new StringBuffer();
 
 		for (String biode : b) {
-			strBuf.append(" " + biode);
+			strBuf.append("\n" + biode);
 		}
 
 		appendInputArea(strBuf.toString().trim());

@@ -204,8 +204,10 @@ public class FileBounceService extends HttpServlet {
 			// create and write the response
 			if (parameterMap.get("uploadFormElement").length() > 0) {
 				// parse the parameterMap
+				// String[] stringsArray = parameterMap.get("uploadFormElement")
+				// .split("\\s+");
 				String[] stringsArray = parameterMap.get("uploadFormElement")
-						.split("\\s+");
+						.split("\\n+");
 
 				// don't keep duplicates
 				HashSet<String> stringsHashSet = new HashSet<String>();
@@ -215,7 +217,7 @@ public class FileBounceService extends HttpServlet {
 
 				StringBuffer sb = new StringBuffer();
 				for (String s : stringsHashSet) {
-					sb.append(s + " ");
+					sb.append(s + "\n");
 				}
 				js.key("list").value(sb.toString().trim());
 
