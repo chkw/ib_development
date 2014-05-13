@@ -46,6 +46,8 @@ test:
 
 #: deploy to production
 deploy_to_prod: war 
+	stop_tomcat_service.sh ;
+	\
 	echo "remove previous webapp" ;
 	\
 	rm -rf $(WEBAPPSPATH)/$(PRODUCTION_WAR_DIR) ;
@@ -63,6 +65,7 @@ deploy_to_prod: war
 	\
 	mv 1.tmp $(WEBAPPSPATH)/$(PRODUCTION_WAR_DIR)/ibWelcome.html ;
 	\
+	start_tomcat_service.sh ;
 
 #: java classpath
 classpath:
@@ -74,6 +77,8 @@ gwt_version:
 
 #: deploy webapp to tomcat server
 deploy: war
+	stop_tomcat_service.sh ;
+	\
 	echo "remove previous webapp" ;
 	\
 	rm -rf $(WEBAPPSPATH)/$(WAR_DIR) ;
@@ -81,6 +86,8 @@ deploy: war
 	echo "copy new webapp" ;
 	\
 	cp -r $(WAR_DIR) $(WEBAPPSPATH)/$(WAR_DIR) ;
+	\
+	start_tomcat_service.sh ;
 	\
 
 #: pack webapp into a war
