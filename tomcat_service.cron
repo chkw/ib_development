@@ -14,6 +14,18 @@
 # |  |  |  |  |
 # *  *  *  *  * user-name command to be executed
 
+# string	meaning
+# @reboot	Run once, at startup.
+# @yearly	Run once a year, "0 0 1 1 *".
+# @annually	(same as @yearly)
+# @monthly	Run once a month, "0 0 1 * *".
+# @weekly	Run once a week, "0 0 * * 0".
+# @daily	Run once a day, "0 0 * * *".
+# @midnight	(same as @daily)
+# @hourly	Run once an hour, "0 * * * *".
+
 # Add this to your crontab with:
 # crontab <this file>
-25  *  *  *  * /projects/sysbio/apps/java/IB-Nightly/ib_development/start_tomcat_service.sh
+
+@reboot /projects/sysbio/apps/java/IB-Nightly/ib_development/start_tomcat_service.sh
+@hourly /projects/sysbio/apps/java/IB-Nightly/ib_development/start_tomcat_service.sh
