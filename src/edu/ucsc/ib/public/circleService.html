@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html401/loose.dtd">
+<html>
+	<head>
+		<title>Interaction Browser CircleMap Web Service</title>
+		<meta charset="utf-8">
+	</head>
+	<body>
+		<h2>Interaction Browser CircleMap Web Service</h2>
+
+		<h3>Introduction</h3>
+		<p>
+			The Interaction Browser (IB) is able to accept requests to generate circleMap images.
+			Requests are accepted in the form of HTTP GET request with accompanying query string.
+			The IB server responds to the request by generating images and returning a JSON.
+			The information in the JSON can then be used to build URLs to retrieve the generated circleMap images.
+		</p>
+
+		<h3>Available Datasets</h3>
+
+		<h4>Request</h4>
+		The available datasets can be requested with:
+		<br>
+		<a target='_ibOut' href='http://sysbio.soe.ucsc.edu/nets/data/circlePlot/getMatrixList?organism=9606'>
+		<code>
+			http://sysbio.soe.ucsc.edu/nets/data/circlePlot/getMatrixList?organism=9606
+		</code></a>
+
+		<h4>Response</h4>
+		The response is a JSON with 2 parts.
+		The first part is an array named "matrices".
+		These are generally matrix data with numerical values.
+		The second part is named "clinical".
+		This data is treated as categorical data.
+		<br>
+		<code>
+			{"id":0,"result":{"matrices":[{"category":"LINCS_v1","description":"BTC_stimulation for LINCS_v1","name":"LINCS_v1_BTC_stimulation"}, ... ,{"category":"TCGA_UCEC","description":"SNP6_nocnv.matrix for UCEC","name":"TCGA_UCEC_SNP6_nocnv_matrix"}],"clinical":[{"tableName":"TCGA_BLCA_clinicalMatrix","features":["additional_pharmaceutical_therapy", ... ,"year_of_initial_pathologic_diagnosis","_PATIENT"]}, ... ,{"tableName":"SU2C_prostate_clinicalMatrix","features":["met_v_primary","dataset"]},{"tableName":"Taylor_prostate_clinicalMatrix","features":["ERG_fusion","ETS_fusion"]},{"tableName":"vluz_small_cell_dichotomy_clinicalMatrix","features":["small_cell_dichotomy"]}],"organism":"9606"},"error":null}
+		</code>
+
+		<h3>Generate CircleMap Images</h3>
+
+		<h4>Request</h4>
+		The main request parameters for this request are:
+		<dl>
+			<!-- ringsList=PANCAN12_clusterings__Cancer_Type_clinical,TCGA_PANCAN12_expression&features=AGL,GYG1,GYG2&orderFeature=AGL -->
+			<dt>
+				ringsList
+			</dt>
+			<dd>
+				ringslist specifies which datasets to use for rings in the the circleMap images.  For "matrix" datasets, just use the "category" field.  For "clinical" datasets, use "table_name__feature_name".
+				<br>
+				example:
+				<code>
+					ringsList=PANCAN12_clusterings__Cancer_Type_clinical,TCGA_PANCAN12_expression
+				</code>
+			</dd>
+			<dt>
+				features
+			</dt>
+			<dd>
+				features specifies a list of genes.  One circleMap image will be generated for each gene in the list.
+				<br>
+				example:
+				<code>
+					features=AGL,GYG1,GYG2
+				</code>
+			</dd>
+			<dt>
+				orderFeature
+			</dt>
+			<dd>
+				orderFeature specifies the gene to use to determine the sample ordering.
+				<br>
+				example:
+				<code>
+					orderFeature=AGL
+				</code>
+			</dd>
+		</dl>
+		<a target='_ibOut' href='http://sysbio.soe.ucsc.edu/nets/data/circlePlot/getImages?ringsList=PANCAN12_clusterings__Cancer_Type_clinical,TCGA_PANCAN12_expression&features=AGL,GYG1,GYG2&orderFeature=AGL&minMaxOverAllDatasetFeaturesSwitch=true&sampleGroupSummarySwitch=false&ringMergeSwitch=false&sortingRing=null&ignoreMissingSamples=false'>
+		<code>
+			http://sysbio.soe.ucsc.edu/nets/data/circlePlot/getImages?ringsList=PANCAN12_clusterings__Cancer_Type_clinical,TCGA_PANCAN12_expression&features=AGL,GYG1,GYG2&orderFeature=AGL&minMaxOverAllDatasetFeaturesSwitch=true&sampleGroupSummarySwitch=false&ringMergeSwitch=false&sortingRing=null&ignoreMissingSamples=false
+		</code> </a>
+
+		<h4>Response</h4>
+		The response is a JSON with several parts that describe the generated circleMap images.  The information is useful for creating a legend.  The section called "circleImageURLs" contains the information required to build a URL to retrieve the actual circleMap images.
+		<br>
+		<code>
+			{"id":0,"result":{"groupRingColorKeys":{"PANCAN12_clusterings__Cancer_Type_clinical":[{"g":128,"groupName":"BLCA","b":128,"r":0,"a":255},{"g":145,"groupName":"BRCA","b":33,"r":237,"a":255},{"g":183,"groupName":"COAD","b":235,"r":0,"a":255},{"g":139,"groupName":"GBM","b":87,"r":46,"a":255},{"g":0,"groupName":"HNSC","b":64,"r":215,"a":255},{"g":128,"groupName":"KIRC","b":0,"r":128,"a":255},{"g":216,"groupName":"LAML","b":0,"r":255,"a":255},{"g":81,"groupName":"LUAD","b":169,"r":120,"a":255},{"g":175,"groupName":"LUSC","b":175,"r":255,"a":255},{"g":0,"groupName":"OV","b":255,"r":0,"a":255},{"g":0,"groupName":"READ","b":0,"r":255,"a":255},{"g":128,"groupName":"UCEC","b":128,"r":0,"a":255}]},"queryJO":{"sampleGroupSummarySwitch":false,"ignoreMissingSamples":false,"features":["GYG2","GYG1","AGL"],"ringsList":["PANCAN12_clusterings__Cancer_Type_clinical","TCGA_PANCAN12_expression"],"orderFeature":"AGL","sortingRing":"PANCAN12_clusterings__Cancer_Type_clinical","ringMergeSwitch":false},"sortedSubtypeNames":[],"sortingDataset":"PANCAN12_clusterings__Cancer_Type_clinical","matrixDisplayOrder":["PANCAN12_clusterings__Cancer_Type_clinical","TCGA_PANCAN12_expression"],"orderFeature":"AGL","sortedSampleSubtypes":[],"circleImageURLs":{"GYG2":"61a09ab86bbc9d51dcea89ac39a84d34.PNG","GYG1":"cddd6a52c7223446b710156e544e4f1b.PNG","AGL":"eb8940f61e36b02c3e4b805abcce6a1a.PNG"}},"error":null}
+		</code>
+
+		<h3>Retrieve CircleMap Images</h3>
+
+		<h4>Request</h4>
+		The following URL is an example of how to retrieve a circleMap image.
+		<br>
+		<a target='_ibOut' href='http://sysbio.soe.ucsc.edu/nets/circleOutput/cddd6a52c7223446b710156e544e4f1b.PNG'>
+		<code>
+			http://sysbio.soe.ucsc.edu/nets/circleOutput/cddd6a52c7223446b710156e544e4f1b.PNG
+		</code> </a>
+
+		<h4>Response</h4>
+		The requested circleMap image is returned.
+	</body>
+</html>
